@@ -1,0 +1,79 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: django-backend
+  namespace: bunnywear
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: django-backend
+
+  template:
+    metadata:
+      labels:
+        app: django-backend
+
+    spec:
+      initContainers:
+      - name: wait-for-mysql
+        image: busybox:1.36
+        command:
+        - sh
+        - -c
+        - |
+          until nc -z mysql 3306; do
+            echo "Esperando MySQL..."
+            sleep 5
+          done
+
+      containers:
+      - name: django-backend
+        image: docker.io/library/bunnywear-backend:v1
+        imagePullPolicy: Never
+
+        ports:
+        - containerPort: 8000
+
+        env:
+        - name: DB_NAME
+          valueFrom:
+            secretKeyRef:
+              name: backend-secret
+              key: DB_NAME
+
+        - name: DB_USER
+          valueFrom:
+            secretKeyRef:
+              name: backend-secret
+              key: DB_USER
+
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: backend-secret
+              key: DB_PASSWORD
+
+        - name: DB_HOST
+          valueFrom:
+            secretKeyRef:
+              name: backend-secret
+              key: DB_HOST
+
+        - name: DB_PORT
+          valueFrom:
+            secretKeyRef:
+              name: backend-secret
+              key: DB_PORT
+
+        - name: DEBUG
+          valueFrom:
+            secretKeyRef:
+              name: backend-secret
+              key: DEBUG
+
+        - name: SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              name: backend-secret
+              key: SECRET_KEY

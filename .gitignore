@@ -18,3 +18,7 @@ Thumbs.db
 
 # Kubernetes temp
 *.bak
+
+
+*.tar
+.next/

@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bunnywear-frontend
+  namespace: bunnywear
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: bunnywear-frontend
+
+  template:
+    metadata:
+      labels:
+        app: bunnywear-frontend
+
+    spec:
+      containers:
+      - name: frontend
+        image: docker.io/library/bunnywear-frontend:v1
+        imagePullPolicy: Never
+
+        ports:
+        - containerPort: 3000
