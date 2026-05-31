@@ -1,0 +1,46 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: mysql-backup
+  namespace: bunnywear
+spec:
+  schedule: "0 2 * * *"
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 2
+
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: OnFailure
+
+          containers:
+          - name: mysql-backup
+            image: mysql:8.0
+
+            env:
+            - name: MYSQL_PWD
+              value: "root123"
+
+            command:
+            - /bin/sh
+            - -c
+            - |
+              mkdir -p /backup
+
+              mysqldump \
+              -h mysql \
+              -u root \
+              bunnywear_db \
+              > /backup/bunnywear-$(date +%F-%H-%M).sql
+
+              echo "Backup completado"
+
+            volumeMounts:
+            - name: backup-storage
+              mountPath: /backup
+
+          volumes:
+          - name: backup-storage
+            persistentVolumeClaim:
+              claimName: mysql-backups-pvc

@@ -1,0 +1,44 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: mysql-restore
+  namespace: bunnywear
+spec:
+  template:
+    spec:
+      restartPolicy: Never
+
+      containers:
+      - name: mysql-restore
+        image: mysql:8.0
+
+        env:
+        - name: MYSQL_PWD
+          value: "root123"
+
+        command:
+        - /bin/sh
+        - -c
+        - |
+          echo "Buscando backup más reciente..."
+
+          FILE=$(ls -t /backup/*.sql | head -n 1)
+
+          echo "Restaurando: $FILE"
+
+          mysql \
+          -h mysql \
+          -u root \
+          bunnywear_db \
+          < $FILE
+
+          echo "Restore completado"
+
+        volumeMounts:
+        - name: backup-storage
+          mountPath: /backup
+
+      volumes:
+      - name: backup-storage
+        persistentVolumeClaim:
+          claimName: mysql-backups-pvc
