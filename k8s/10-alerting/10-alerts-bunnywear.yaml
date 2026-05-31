@@ -1,0 +1,47 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: bunnywear-alert-rules
+  namespace: monitoring
+data:
+  alerts.yml: |
+    groups:
+    - name: bunnywear-alerts
+      rules:
+
+      - alert: DjangoBackendDown
+        expr: absent(kube_pod_status_ready{namespace="bunnywear", condition="true"} * on(pod) group_left() kube_pod_info{namespace="bunnywear", pod=~"django-backend.*"})
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Django backend caído"
+          description: "El deployment django-backend no tiene réplicas disponibles."
+
+      - alert: FrontendDown
+        expr: kube_deployment_spec_replicas{deployment="bunnywear-frontend", namespace="bunnywear"} > 0 unless kube_deployment_status_replicas_available{deployment="bunnywear-frontend", namespace="bunnywear"} > 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Frontend caído"
+          description: "El deployment bunnywear-frontend no tiene réplicas disponibles."
+
+      - alert: PodCrashLooping
+        expr: increase(kube_pod_container_status_restarts_total{namespace="bunnywear"}[5m]) > 3
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Pod reiniciando demasiado"
+          description: "Un pod en BunnyWear ha reiniciado más de 3 veces en 5 minutos."
+
+      - alert: ReplicasMissing
+        expr: kube_deployment_status_replicas_unavailable{namespace="bunnywear"} > 0
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Réplicas faltantes"
+          description: "Hay deployments sin todas sus réplicas disponibles."
+
