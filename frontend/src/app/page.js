@@ -10,7 +10,7 @@ const API_URL =
 
 async function getProducts() {
   try {
-    const res = await fetch(`${API_PRUEBA_LOCAL}/api/products/`, {
+    const res = await fetch(`${API_URL}/api/products/`, {
       cache: "no-store",
     });
     if (!res.ok) return [];
