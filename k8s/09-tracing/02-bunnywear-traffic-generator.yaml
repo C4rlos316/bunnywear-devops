@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bunnywear-traffic-generator
+  namespace: bunnywear
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bunnywear-traffic-generator
+  template:
+    metadata:
+      labels:
+        app: bunnywear-traffic-generator
+    spec:
+      containers:
+      - name: traffic-generator
+        image: curlimages/curl:8.7.1
+        command:
+        - /bin/sh
+        - -c
+        - |
+          while true; do
+            echo "Frontend request..."
+            curl -s http://bunnywear-frontend:3000 > /dev/null
+
+            echo "Backend request..."
+            curl -s http://django-backend:8000/api/products/ > /dev/null
+
+            sleep 3
+          done
