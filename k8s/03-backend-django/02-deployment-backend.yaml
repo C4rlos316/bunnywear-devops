@@ -29,7 +29,7 @@ spec:
 
       containers:
       - name: django-backend
-        image: docker.io/library/bunnywear-backend:v1
+        image: docker.io/library/bunnywear-backend:v5
         imagePullPolicy: Never
 
         ports:
