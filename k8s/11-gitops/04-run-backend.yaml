@@ -1,0 +1,21 @@
+apiVersion: tekton.dev/v1
+kind: PipelineRun
+metadata:
+  generateName: bunnywear-backend-run-
+  namespace: tekton-pipelines
+
+spec:
+  taskRunTemplate:
+    serviceAccountName: tekton-build-sa
+
+  pipelineRef:
+    name: bunnywear-backend-pipeline
+
+  workspaces:
+    - name: source
+      persistentVolumeClaim:
+        claimName: tekton-workspace-pvc
+
+    - name: dockerconfig
+      secret:
+        secretName: dockerhub-secret

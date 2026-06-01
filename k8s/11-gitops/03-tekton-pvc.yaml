@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: tekton-workspace-pvc
+  namespace: tekton-pipelines
+
+spec:
+  accessModes:
+    - ReadWriteMany
+
+  storageClassName: nfs-csi
+
+  resources:
+    requests:
+      storage: 2Gi
