@@ -19,8 +19,8 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: docker.io/library/bunnywear-frontend:v1
-        imagePullPolicy: Never
+        image: docker.io/c4rlos316/bunnywear-frontend:latest
+        imagePullPolicy: Always
 
         ports:
         - containerPort: 3000
