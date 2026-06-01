@@ -22,4 +22,7 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('products.urls')),
+
+    # Endpoint de metricas para Prometheus (peticiones, latencia, errores)
+    path('', include('django_prometheus.urls')),
 ]
