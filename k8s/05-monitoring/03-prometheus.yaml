@@ -36,6 +36,14 @@ data:
       - targets:
         - 'kube-state-metrics.monitoring.svc.cluster.local:8080'
 
+    # Metricas de la tienda BunnyWear (Django + django-prometheus)
+    # Apunta al Service del backend, que reparte entre las replicas.
+    - job_name: 'bunnywear-backend'
+      metrics_path: /metrics
+      static_configs:
+      - targets:
+        - 'django-backend.bunnywear.svc.cluster.local:8000'
+
 ---
 apiVersion: apps/v1
 kind: Deployment
