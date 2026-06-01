@@ -1,0 +1,81 @@
+apiVersion: tekton.dev/v1
+kind: Pipeline
+metadata:
+  name: bunnywear-frontend-pipeline
+  namespace: tekton-pipelines
+
+spec:
+  params:
+    - name: REPO_URL
+      default: "https://github.com/C4rlos316/bunnywear-devops.git"
+
+    - name: REVISION
+      default: "main"
+
+    - name: IMAGE
+      default: "docker.io/c4rlos316/bunnywear-frontend"
+
+    - name: TAG
+      default: "latest"
+
+  workspaces:
+    - name: source
+    - name: dockerconfig
+
+  tasks:
+
+    - name: git-clone
+      taskSpec:
+        workspaces:
+          - name: output
+
+        steps:
+          - name: clone
+            image: alpine/git:latest
+            script: |
+              #!/bin/sh
+              cd /workspace/output
+              rm -rf bunnywear-devops
+
+              git clone https://$(cat /etc/git-secret/username):$(cat /etc/git-secret/password)@github.com/C4rlos316/bunnywear-devops.git
+
+            volumeMounts:
+              - name: git-secret
+                mountPath: /etc/git-secret
+
+        volumes:
+          - name: git-secret
+            secret:
+              secretName: git-credentials
+
+      workspaces:
+        - name: output
+          workspace: source
+
+    - name: build-push
+      taskRef:
+        name: kaniko-build-push
+        kind: Task
+
+      runAfter:
+        - git-clone
+
+      params:
+        - name: IMAGE
+          value: $(params.IMAGE)
+
+        - name: TAG
+          value: $(params.TAG)
+
+        - name: CONTEXT
+          value: bunnywear-devops/frontend
+
+        - name: DOCKERFILE
+          value: bunnywear-devops/frontend/Dockerfile
+
+      workspaces:
+        - name: source
+          workspace: source
+
+        - name: dockerconfig
+          workspace: dockerconfig
