@@ -15,9 +15,9 @@ export default function Hero() {
         </p>
 
         <h1 className="mt-6 animate-fade-in-up text-5xl font-semibold leading-[1.05] tracking-tight text-ink sm:text-6xl md:text-7xl">
-          Moda urbana,
+          Tu estilo,
           <br />
-          hecha para durar.
+          tu actitud.
         </h1>
 
         <p
