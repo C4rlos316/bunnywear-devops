@@ -1,0 +1,13 @@
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+
+metadata:
+  name: django-backend-pdb
+  namespace: bunnywear
+
+spec:
+  minAvailable: 1
+
+  selector:
+    matchLabels:
+      app: django-backend
