@@ -22,3 +22,9 @@ Thumbs.db
 
 *.tar
 .next/
+
+# Notas internas y archivos locales (no subir)
+.kiro/
+Requisitos-proyecto.txt
+Stack-a-usar.txt
+03-prometheus-BACKUP-FUNCIONANDO.yaml
