@@ -29,8 +29,8 @@ spec:
 
       containers:
       - name: django-backend
-        image: docker.io/library/bunnywear-backend:v5
-        imagePullPolicy: Never
+        image: docker.io/c4rlos316/bunnywear-backend:latest
+        imagePullPolicy: Always
 
         ports:
         - containerPort: 8000
