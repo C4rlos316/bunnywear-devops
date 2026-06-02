@@ -1,0 +1,71 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: seed-products
+  namespace: bunnywear
+
+spec:
+  ttlSecondsAfterFinished: 3600  # Se auto-elimina 1 hora después de terminar
+  backoffLimit: 3
+  
+  template:
+    spec:
+      restartPolicy: Never
+      
+      # Espera a que MySQL esté listo
+      initContainers:
+      - name: wait-for-mysql
+        image: busybox:1.36
+        command:
+        - sh
+        - -c
+        - |
+          until nc -z mysql 3306; do
+            echo "Esperando MySQL..."
+            sleep 5
+          done
+          echo "✅ MySQL listo"
+
+      containers:
+      - name: seed-job
+        image: docker.io/library/bunnywear-backend:v5
+        imagePullPolicy: Never
+        
+        env:
+        - name: DB_NAME
+          valueFrom:
+            secretKeyRef:
+              name: backend-secret
+              key: DB_NAME
+        - name: DB_USER
+          valueFrom:
+            secretKeyRef:
+              name: backend-secret
+              key: DB_USER
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: backend-secret
+              key: DB_PASSWORD
+        - name: DB_HOST
+          valueFrom:
+            secretKeyRef:
+              name: backend-secret
+              key: DB_HOST
+        - name: DB_PORT
+          valueFrom:
+            secretKeyRef:
+              name: backend-secret
+              key: DB_PORT
+
+        command:
+        - /bin/sh
+        - -c
+        - |
+          echo "▶ Iniciando seeding de 20 productos..."
+          python manage.py shell < scripts/seed_products.py
+          echo "✅ Seeding completado"
+          echo " Verificando cantidad de productos:"
+          python manage.py shell -c "from products.models import Product; print(f'Total en BD: {Product.objects.count()} productos')"
+
+        workingDir: /app
