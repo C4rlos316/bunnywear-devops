@@ -9,7 +9,7 @@ const LINKS = [
   { label: "Nosotros", href: "#footer" },
 ];
 
-export default function Navbar() {
+export default function Navbar({ cartCount = 0, onOpenCart }) {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -60,6 +60,7 @@ export default function Navbar() {
           </button>
           <button
             aria-label="Carrito"
+            onClick={onOpenCart}
             className="relative transition-opacity hover:opacity-60"
           >
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
@@ -68,9 +69,11 @@ export default function Navbar() {
               <circle cx="18" cy="20" r="1.4" fill="currentColor" stroke="none" />
               <path d="M6 6 5 3H3" strokeLinecap="round" />
             </svg>
-            <span className="absolute -right-2 -top-2 flex h-4 w-4 items-center justify-center rounded-full bg-terracotta text-[10px] font-medium text-white">
-              0
-            </span>
+            {cartCount > 0 && (
+              <span className="absolute -right-2 -top-2 flex h-4 w-4 items-center justify-center rounded-full bg-terracotta text-[10px] font-medium text-white">
+                {cartCount > 9 ? "9+" : cartCount}
+              </span>
+            )}
           </button>
         </div>
       </nav>
