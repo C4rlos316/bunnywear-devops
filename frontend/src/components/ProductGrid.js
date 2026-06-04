@@ -1,9 +1,12 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, useCallback } from "react";
 import ProductCard from "./ProductCard";
+import Toast from "./Toast";
+import { useCart } from "./ClientLayout";
 
 export default function ProductGrid({ products }) {
+  const { onAddToCart } = useCart();
   const categories = useMemo(() => {
     const set = new Set(
       products.map((p) => p.category).filter(Boolean)
@@ -12,6 +15,14 @@ export default function ProductGrid({ products }) {
   }, [products]);
 
   const [active, setActive] = useState("Todos");
+  const [toastVisible, setToastVisible] = useState(0);
+  const [toastMsg, setToastMsg] = useState("");
+
+  const handleAddToCart = useCallback((product) => {
+    onAddToCart(product);
+    setToastMsg(`${product.name} agregado al carrito`);
+    setToastVisible((v) => v + 1);
+  }, [onAddToCart]);
 
   const filtered = useMemo(() => {
     if (active === "Todos") return products;
@@ -19,6 +30,7 @@ export default function ProductGrid({ products }) {
   }, [products, active]);
 
   return (
+    <>
     <section id="tienda" className="mx-auto max-w-7xl px-6 py-20 md:py-28">
       <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
         <div>
@@ -54,7 +66,7 @@ export default function ProductGrid({ products }) {
       {filtered.length > 0 ? (
         <div className="mt-12 grid grid-cols-2 gap-x-6 gap-y-12 md:grid-cols-3 lg:grid-cols-4">
           {filtered.map((product, i) => (
-            <ProductCard key={product.id} product={product} index={i} />
+            <ProductCard key={product.id} product={product} index={i} onAddToCart={handleAddToCart} />
           ))}
         </div>
       ) : (
@@ -66,5 +78,7 @@ export default function ProductGrid({ products }) {
         </div>
       )}
     </section>
+    <Toast message={toastMsg} visible={toastVisible} />
+    </>
   );
 }

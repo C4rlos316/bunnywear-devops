@@ -9,7 +9,7 @@ function formatPrice(value) {
   }).format(number);
 }
 
-export default function ProductCard({ product, index = 0 }) {
+export default function ProductCard({ product, index = 0, onAddToCart }) {
   const lowStock = typeof product.stock === "number" && product.stock <= 10;
   const outOfStock = product.stock === 0;
 
@@ -49,6 +49,7 @@ export default function ProductCard({ product, index = 0 }) {
         <div className="absolute inset-x-3 bottom-3 translate-y-3 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
           <button
             disabled={outOfStock}
+            onClick={() => !outOfStock && onAddToCart && onAddToCart(product)}
             className="w-full rounded-full bg-bone/95 py-2.5 text-sm font-medium text-ink backdrop-blur transition-colors hover:bg-ink hover:text-white disabled:cursor-not-allowed disabled:opacity-60"
           >
             {outOfStock ? "No disponible" : "Agregar al carrito"}
