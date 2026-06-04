@@ -4,7 +4,7 @@ metadata:
   name: django-backend
   namespace: bunnywear
 spec:
-  replicas: 2
+  replicas: 3
   selector:
     matchLabels:
       app: django-backend
