@@ -1,8 +1,8 @@
-import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import Marquee from "@/components/Marquee";
 import ProductGrid from "@/components/ProductGrid";
 import Footer from "@/components/Footer";
+import ClientLayout from "@/components/ClientLayout";
 
 const  API_PRUEBA_LOCAL = process.env.NEXT_PUBLIC_API_URL || "http://192.168.223.134:30729";
 const API_URL =
@@ -25,8 +25,7 @@ export default async function Home() {
   const products = await getProducts();
 
   return (
-    <>
-      <Navbar />
+    <ClientLayout>
       <main>
         <Hero />
         <Marquee />
@@ -47,8 +46,8 @@ export default async function Home() {
             </p>
           </section>
         )}
+        <Footer />
       </main>
-      <Footer />
-    </>
+    </ClientLayout>
   );
 }
