@@ -17,7 +17,6 @@
 [![ArgoCD](https://img.shields.io/badge/ArgoCD-GitOps-EF7B4D?style=for-the-badge&logo=argo&logoColor=white)](https://argoproj.github.io/)
 
 ![Last Commit](https://img.shields.io/github/last-commit/C4rlos316/bunnywear-devops?style=flat-square&color=green)
-![Repo Size](https://img.shields.io/github/repo-size/C4rlos316/bunnywear-devops?style=flat-square&color=blue)
 
 </div>
 
@@ -36,7 +35,6 @@
 - [Alertas](#-alertas-configuradas)
 - [Backup automático](#-backup-automático)
 - [Alta disponibilidad](#️-alta-disponibilidad)
-- [Documentación](#-documentación)
 
 ---
 
@@ -58,26 +56,8 @@ BunnyWear es una tienda de ropa streetwear desplegada completamente sobre un cl�
 
 ## 🏗️ Arquitectura
 
-```
-┌─────────────────────────────────────────────────────────┐
-│                    Clúster Kubernetes                    │
-│                                                         │
-│  ┌─────────────┐    ┌─────────────┐    ┌─────────────┐  │
-│  │  Next.js 16 │───▶│  Django REST│───▶│  MySQL 8.0  │  │
-│  │  Frontend   │    │  Backend    │    │  StatefulSet│  │
-│  └─────────────┘    └─────────────┘    └─────────────┘  │
-│                                                         │
-│  ┌──────────────────────────────────────────────────┐   │
-│  │              Observabilidad                      │   │
-│  │  Prometheus · Grafana · Loki · Tempo · OTel      │   │
-│  └──────────────────────────────────────────────────┘   │
-│                                                         │
-│  ┌──────────────────────────────────────────────────┐   │
-│  │              CI/CD GitOps                        │   │
-│  │  Tekton Pipelines  ·  ArgoCD                     │   │
-│  └──────────────────────────────────────────────────┘   │
-└─────────────────────────────────────────────────────────┘
-```
+![Arquitectura](Arquitectura_general.png)
+
 
 **Clúster:** 1 master + 2 workers · Flannel CNI · Rocky Linux 9  
 **Almacenamiento:** NFS con CSI driver · StorageClass `nfs-csi`
@@ -236,20 +216,6 @@ PodDisruptionBudget garantiza mínimo 1 réplica del backend disponible en todo 
 ```bash
 kubectl get pdb -n bunnywear
 ```
-
----
-
-## 📚 Documentación
-
-| Documento | Descripción |
-|-----------|-------------|
-| [`docs/guion-grafana-dashboards.md`](docs/guion-grafana-dashboards.md) | Guía dashboards Grafana |
-| [`docs/guion-loki-logs.md`](docs/guion-loki-logs.md) | Guía logs con Loki |
-| [`docs/guion-tempo-trazas.md`](docs/guion-tempo-trazas.md) | Guía trazas con Tempo |
-| [`docs/guion-alertmanager.md`](docs/guion-alertmanager.md) | Guía Alertmanager |
-| [`docs/guion-cronjob-backup.md`](docs/guion-cronjob-backup.md) | Guía backup MySQL |
-| [`docs/guion-pdb-alta-disponibilidad.md`](docs/guion-pdb-alta-disponibilidad.md) | Guía PDB |
-| [`DOCUMENTACION-TECNICA.md`](DOCUMENTACION-TECNICA.md) | Documentación técnica completa |
 
 ---
 
