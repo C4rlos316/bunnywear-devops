@@ -9,17 +9,20 @@ spec:
 
   source:
     repoURL: https://github.com/C4rlos316/bunnywear-devops.git
-    targetRevision: main
+    targetRevision: develop
     path: k8s
 
     directory:
       recurse: true
-      include: '{00-namespace,02-mysql,03-backend-django,04-frontend-nextjs,05-ingress,11-high-availability}/*'
+      include: '{00-namespace,02-mysql,03-backend-django,04-frontend-nextjs,05-ingress}/*'
 
   destination:
     server: https://kubernetes.default.svc
     namespace: bunnywear
 
   syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
     syncOptions:
       - CreateNamespace=true
