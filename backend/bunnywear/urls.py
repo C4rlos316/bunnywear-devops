@@ -17,10 +17,16 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path, include
+from django.http import JsonResponse
+import os
 
+
+def health(request):
+    return JsonResponse({"status": "ok", "version": os.getenv("GIT_SHA", "local")})
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/health/', health),
     path('api/', include('products.urls')),
 
     # Endpoint de metricas para Prometheus (peticiones, latencia, errores)
