@@ -1,0 +1,35 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: bunnywear-ingress
+  namespace: bunnywear
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: web
+
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /api
+        pathType: Prefix
+        backend:
+          service:
+            name: django-backend
+            port:
+              number: 8000
+
+      - path: /admin
+        pathType: Prefix
+        backend:
+          service:
+            name: django-backend
+            port:
+              number: 8000
+
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: bunnywear-frontend
+            port:
+              number: 3000

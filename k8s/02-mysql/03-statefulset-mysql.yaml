@@ -61,9 +61,9 @@ spec:
 
       spec:
         accessModes:
-          - ReadWriteMany
+          - ReadWriteOnce
 
-        storageClassName: nfs-csi
+        storageClassName: local-path
 
         resources:
           requests:

@@ -5,7 +5,7 @@ metadata:
   namespace: bunnywear
 
 spec:
-  type: NodePort
+  type: ClusterIP
 
   selector:
     app: bunnywear-frontend
