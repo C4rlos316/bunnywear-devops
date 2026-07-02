@@ -28,6 +28,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/health/', health),
     path('api/', include('products.urls')),
+    path('api/', include('blog.urls')),
 
     # Endpoint de metricas para Prometheus (peticiones, latencia, errores)
     path('', include('django_prometheus.urls')),

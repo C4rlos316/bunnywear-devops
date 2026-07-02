@@ -24,6 +24,7 @@ INSTALLED_APPS = [
     'django_prometheus',
     'rest_framework',
     'products',
+    'blog',
 ]
 
 MIDDLEWARE = [
