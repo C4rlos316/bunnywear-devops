@@ -8,22 +8,27 @@ export default function About() {
       </Reveal>
       <Reveal delay={0.1}>
         <h2 className="mt-4 text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
-          Estudiante de Ingeniería en Computación
+          Estudiante de Ingeniería en Computación — UNAM
         </h2>
       </Reveal>
       <Reveal delay={0.2}>
         <p className="mt-6 max-w-2xl text-base leading-relaxed text-ash sm:text-lg">
-          Me gusta entender cómo funcionan los sistemas de punta a punta:
-          desde el código de una API hasta la infraestructura que la mantiene
-          corriendo. Este sitio es un ejemplo — empezó como un e-commerce de
-          práctica y terminó siendo un proyecto de infraestructura completo en
-          la nube: contenedores, Kubernetes, HTTPS, CI/CD y monitoreo.
+          Estudiante de Ingeniería en Computación con experiencia en
+          infraestructura tecnológica, administración de sistemas Linux,
+          despliegue de aplicaciones en Kubernetes y monitoreo de servicios.
         </p>
       </Reveal>
       <Reveal delay={0.3}>
         <p className="mt-4 max-w-2xl text-base leading-relaxed text-ash sm:text-lg">
-          Actualmente sigo aprendiendo y construyendo, con foco en desarrollo
-          full-stack y prácticas de DevOps.
+          He participado en proyectos de automatización, observabilidad y
+          redes, complementados con certificaciones en Google Cloud y Oracle
+          Cloud Infrastructure. Busco desarrollarme en áreas de
+          Infraestructura TI, Cloud, Redes y DevOps.
+        </p>
+      </Reveal>
+      <Reveal delay={0.4}>
+        <p className="mt-8 text-sm text-ash">
+          Ingeniería en Computación — UNAM Facultad de Ingeniería (2021 – Actualidad)
         </p>
       </Reveal>
     </section>

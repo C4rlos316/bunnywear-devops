@@ -2,9 +2,11 @@ import Hero from "@/components/Hero";
 import Footer from "@/components/Footer";
 import ClientLayout from "@/components/ClientLayout";
 import About from "@/components/portfolio/About";
+import Experience from "@/components/portfolio/Experience";
 import Skills from "@/components/portfolio/Skills";
 import Projects from "@/components/portfolio/Projects";
 import Infra from "@/components/portfolio/Infra";
+import Certifications from "@/components/portfolio/Certifications";
 import Blog from "@/components/portfolio/Blog";
 import Contact from "@/components/portfolio/Contact";
 
@@ -33,9 +35,11 @@ export default async function Home() {
       <main>
         <Hero />
         <About />
+        <Experience />
         <Skills />
         <Projects />
         <Infra />
+        <Certifications />
         <Blog posts={posts} />
         <Contact />
         <Footer />

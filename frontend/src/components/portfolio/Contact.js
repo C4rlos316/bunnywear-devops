@@ -1,4 +1,4 @@
-import { Github, Mail } from "lucide-react";
+import { Github, Linkedin, Mail } from "lucide-react";
 import Reveal from "../Reveal";
 
 export default function Contact() {
@@ -27,6 +27,15 @@ export default function Contact() {
           >
             <Mail size={16} />
             Enviar correo
+          </a>
+          <a
+            href="https://www.linkedin.com/in/carlosmhernandezgut/"
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center gap-2 rounded-full border border-line px-8 py-3.5 text-sm font-medium text-ink transition-colors hover:border-mint hover:text-mint"
+          >
+            <Linkedin size={16} />
+            LinkedIn
           </a>
           <a
             href="https://github.com/C4rlos316"
