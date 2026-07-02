@@ -12,18 +12,18 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "BunnyWear — Moda Rápida & Streetwear",
+  title: "Carlos Mario Hernández Gutiérrez — Portfolio",
   description:
-    "Streetwear minimalista y atemporal. Descubre la nueva colección BunnyWear: hoodies, playeras, pantalones y más.",
+    "Estudiante de Ingeniería en Computación. Desarrollo full-stack y DevOps: Kubernetes, CI/CD y observabilidad.",
 };
 
 export default function RootLayout({ children }) {
   return (
     <html
       lang="es"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} dark h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col bg-bg text-ink">{children}</body>
     </html>
   );
 }

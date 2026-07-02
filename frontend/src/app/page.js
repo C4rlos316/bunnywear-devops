@@ -1,51 +1,43 @@
 import Hero from "@/components/Hero";
-import Marquee from "@/components/Marquee";
-import ProductGrid from "@/components/ProductGrid";
 import Footer from "@/components/Footer";
 import ClientLayout from "@/components/ClientLayout";
+import About from "@/components/portfolio/About";
+import Skills from "@/components/portfolio/Skills";
+import Projects from "@/components/portfolio/Projects";
+import Infra from "@/components/portfolio/Infra";
+import Blog from "@/components/portfolio/Blog";
+import Contact from "@/components/portfolio/Contact";
 
-const  API_PRUEBA_LOCAL = process.env.NEXT_PUBLIC_API_URL || "http://192.168.223.134:30729";
 const API_URL =
   process.env.NEXT_PUBLIC_API_URL || "http://django-backend:8000";
 
-async function getProducts() {
+async function getPosts() {
   try {
-    const res = await fetch(`${API_URL}/api/products/`, {
+    const res = await fetch(`${API_URL}/api/blog/`, {
       cache: "no-store",
     });
     if (!res.ok) return [];
-    return await res.json();
+    const data = await res.json();
+    return Array.isArray(data) ? data : data.results || [];
   } catch (error) {
-    console.error("No se pudieron cargar los productos:", error);
+    console.error("No se pudieron cargar las entradas del blog:", error);
     return [];
   }
 }
 
 export default async function Home() {
-  const products = await getProducts();
+  const posts = await getPosts();
 
   return (
     <ClientLayout>
       <main>
         <Hero />
-        <Marquee />
-        {products.length > 0 ? (
-          <ProductGrid products={products} />
-        ) : (
-          <section
-            id="tienda"
-            className="mx-auto flex max-w-7xl flex-col items-center px-6 py-28 text-center"
-          >
-            <p className="eyebrow text-terracotta">Colección</p>
-            <h2 className="mt-3 text-3xl font-semibold tracking-tight text-ink">
-              Catálogo no disponible
-            </h2>
-            <p className="mt-3 max-w-md text-sm text-ash">
-              No pudimos conectar con la tienda en este momento. Vuelve a
-              intentarlo en unos minutos.
-            </p>
-          </section>
-        )}
+        <About />
+        <Skills />
+        <Projects />
+        <Infra />
+        <Blog posts={posts} />
+        <Contact />
         <Footer />
       </main>
     </ClientLayout>
