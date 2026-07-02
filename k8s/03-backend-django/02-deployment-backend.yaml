@@ -29,7 +29,7 @@ spec:
 
       containers:
       - name: django-backend
-        image: docker.io/c4rlos316/bunnywear-backend:af0605bd2cf0175dc4f8f6324b51d49f294f82b6
+        image: docker.io/c4rlos316/bunnywear-backend:c7e81fba63a13cc1a517fc6699ce3fb3ad02d55c
         imagePullPolicy: Always
 
         ports:
