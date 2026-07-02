@@ -12,6 +12,15 @@ DEBUG = os.getenv("DEBUG") == "True"
 
 ALLOWED_HOSTS = ["*"]
 
+CSRF_TRUSTED_ORIGINS = [
+    "https://c4rlos.dev",
+    "https://www.c4rlos.dev",
+    "https://argocd.c4rlos.dev",
+    "https://grafana.c4rlos.dev",
+]
+
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+
 
 INSTALLED_APPS = [
     'django.contrib.admin',
