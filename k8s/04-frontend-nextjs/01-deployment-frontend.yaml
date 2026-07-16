@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: docker.io/c4rlos316/bunnywear-frontend:7c71acbca3e57a67f4f3fc43d76998214a302f3d
+        image: docker.io/c4rlos316/bunnywear-frontend:61cc68785ddd4c8f1ceb73a04e9d3f75ca406c33
         imagePullPolicy: Always
 
         env:
