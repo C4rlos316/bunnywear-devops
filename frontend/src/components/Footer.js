@@ -2,7 +2,7 @@ import { CONTACT_LINKS } from "./portfolio/data";
 
 export default function Footer() {
   return (
-    <footer id="footer" className="border-t border-line bg-bg">
+    <footer id="footer" className="border-t border-white/[0.08] bg-bg">
       <div className="mx-auto flex max-w-6xl flex-col items-center gap-4 px-6 py-10 text-xs text-ash sm:flex-row sm:justify-between">
         <p>
           © {new Date().getFullYear()} Carlos Mario Hernández Gutiérrez.
@@ -14,7 +14,7 @@ export default function Footer() {
               href={link.href}
               target="_blank"
               rel="noreferrer"
-              className="transition-colors hover:text-mint"
+              className="transition-colors hover:text-ink"
             >
               {link.label}
             </a>

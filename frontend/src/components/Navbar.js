@@ -19,14 +19,14 @@ export default function Navbar() {
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "bg-bg/90 backdrop-blur-md border-b border-line"
+          ? "bg-black/70 backdrop-blur-2xl border-b border-white/10"
           : "bg-transparent border-b border-transparent"
       }`}
     >
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
         <a href="#inicio" className="flex items-center gap-2">
-          <span className="text-lg font-semibold tracking-tight text-ink">
-            Carlos<span className="text-mint">.</span>dev
+          <span className="text-base font-semibold tracking-tight text-ink">
+            Carlos Hernández
           </span>
         </a>
 
@@ -35,7 +35,7 @@ export default function Navbar() {
             <li key={link.label}>
               <a
                 href={link.href}
-                className="eyebrow text-ash transition-colors hover:text-mint"
+                className="text-sm font-medium text-ash transition-colors hover:text-ink"
               >
                 {link.label}
               </a>
@@ -53,13 +53,13 @@ export default function Navbar() {
       </nav>
 
       {mobileOpen && (
-        <ul className="flex flex-col gap-1 border-t border-line bg-bg px-6 py-4 md:hidden">
+        <ul className="flex flex-col gap-1 border-t border-white/10 bg-black/90 px-6 py-4 backdrop-blur-2xl md:hidden">
           {NAV_LINKS.map((link) => (
             <li key={link.label}>
               <a
                 href={link.href}
                 onClick={() => setMobileOpen(false)}
-                className="block py-2 text-sm text-ash transition-colors hover:text-mint"
+                className="block py-2 text-sm text-ash transition-colors hover:text-ink"
               >
                 {link.label}
               </a>
